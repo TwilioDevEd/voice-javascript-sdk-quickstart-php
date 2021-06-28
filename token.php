@@ -10,16 +10,16 @@ $dotenv->load();
 
 function get_access_token($identity) {
     $access_token = new AccessToken(
-        getenv('TWILIO_ACCOUNT_SID'),
-        getenv('API_KEY'),
-        getenv('API_SECRET'),
+        $_ENV['TWILIO_ACCOUNT_SID'],
+        $_ENV['API_KEY'],
+        $_ENV['API_SECRET'],
         3600,
         $identity
     );
     
     // Create Voice grant
     $voiceGrant = new VoiceGrant();
-    $voiceGrant->setOutgoingApplicationSid(getenv('TWILIO_TWIML_APP_SID'));
+    $voiceGrant->setOutgoingApplicationSid($_ENV['TWILIO_TWIML_APP_SID']);
     
     // Optional: add to allow incoming calls
     $voiceGrant->setIncomingAllow(true);

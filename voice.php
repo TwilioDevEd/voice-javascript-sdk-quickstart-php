@@ -11,7 +11,7 @@ function get_voice_response($to) {
 
     if (!empty($to) && strlen($to) > 0) {
         $number = htmlspecialchars($to);
-        $dial = $response->dial('', ['callerId' => getenv('TWILIO_CALLER_ID')]);
+        $dial = $response->dial('', ['callerId' => $_ENV['TWILIO_CALLER_ID']]);
         
         // wrap the phone number or client name in the appropriate TwiML verb
         // by checking if the number given has only digits and format symbols
