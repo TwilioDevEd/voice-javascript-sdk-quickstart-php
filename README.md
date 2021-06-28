@@ -16,7 +16,7 @@ Implementations in other languages:
 
 | .NET | Java | Python | Ruby | Node |
 | :--- | :--- | :----- | :-- | :--- |
-| [Done](https://github.com/TwilioDevEd/client-quickstart-csharp)  | [Done](https://github.com/TwilioDevEd/client-quickstart-java)  | [Done](https://github.com/TwilioDevEd/client-quickstart-python)  | [Done](https://github.com/TwilioDevEd/client-quickstart-ruby) | [Done](https://github.com/TwilioDevEd/client-quickstart-node)  |
+| In progress  | [Done](https://github.com/TwilioDevEd/voice-javascript-sdk-quickstart-java)  | [Done](https://github.com/TwilioDevEd/voice-javascript-sdk-quickstart-python)  | [Done](https://github.com/TwilioDevEd/voice-javascript-sdk-quickstart-ruby) | [Done](https://github.com/TwilioDevEd/voice-javascript-sdk-quickstart-node)  |
 
 ## Set up
 
