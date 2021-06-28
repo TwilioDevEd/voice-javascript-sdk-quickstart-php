@@ -6,11 +6,11 @@ use Twilio\TwiML\VoiceResponse;
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-function get_voice_response($to) {
+function get_voice_response($phone) {
     $response = new VoiceResponse();
 
-    if (!empty($to) && strlen($to) > 0) {
-        $number = htmlspecialchars($to);
+    if (!empty($phone) && strlen($phone) > 0) {
+        $number = htmlspecialchars($phone);
         $dial = $response->dial('', ['callerId' => $_ENV['TWILIO_CALLER_ID']]);
         
         // wrap the phone number or client name in the appropriate TwiML verb
@@ -29,4 +29,4 @@ function get_voice_response($to) {
 
 // get the phone number from the page request parameters, if given
 header('Content-Type: text/xml');
-echo get_voice_response($_REQUEST['To'] ?? null);
+echo get_voice_response($_REQUEST['phone'] ?? null);
