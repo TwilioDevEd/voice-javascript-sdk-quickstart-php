@@ -6,11 +6,15 @@
 
 ![](https://github.com/TwilioDevEd/client-quickstart-php/workflows/Composer/badge.svg)
 
-> We are currently in the process of updating this sample template. If you are encountering any issues with the sample, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues) and we'll try to help you.
+> This template is part of Twilio CodeExchange. If you encounter any issues with this code, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues).
 
 ## About
 
-This application should give you a ready-made starting point for writing your own voice apps with Twilio Client.
+This application should give you a ready-made starting point for writing your own voice apps with the Twilio Voice JavaScript SDK (formerly known as Twilio Client).
+
+Once you set up the application, you will be able to make and receive calls from your browser. You will also be able to switch between audio input/output devices and see dynamic volume levels on the call.
+
+![screenshot of application homepage](./screenshots/Homepage.png)
 
 Implementations in other languages:
 
@@ -23,29 +27,27 @@ Implementations in other languages:
 ### Requirements
 
 - [PHP >= 7.2.5](https://www.php.net/) and [composer](https://getcomposer.org/)
+- [ngrok](https://ngrok.com/download)
 - A Twilio account - [sign up](https://www.twilio.com/try-twilio)
 
 ### Twilio Account Settings
 
-This application should give you a ready-made starting point for writing your own application.
-Before we begin, we need to collect all the config values we need to run the application:
+Before we begin, we need to collect all the config values we need to run the application.
 
-| Config&nbsp;Value | Description                                                                                                                                                  |
-| :---------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Account&nbsp;Sid  | Your primary Twilio account identifier - find this [in the Console](https://www.twilio.com/console).                                                         |
-| Phone&nbsp;number | A Twilio phone number in [E.164 format](https://en.wikipedia.org/wiki/E.164) - you can [get one here](https://www.twilio.com/console/phone-numbers/incoming) |
-| App&nbsp;Sid | The TwiML application with a voice URL configured to access your server running this app - create one [in the console here](https://www.twilio.com/console/voice/twiml/apps). Also, you will need to configure the Voice "REQUEST URL" on the TwiML app once you've got your server up and running. |
-| API Key / API Secret | Your REST API Key information needed to create an [Access Token](https://www.twilio.com/docs/iam/access-tokens) - create [one here](https://www.twilio.com/console/project/api-keys). |
+| Config Value  | Description |
+| :-------------  |:------------- |
+`TWILIO_ACCOUNT_SID` | Your primary Twilio account identifier - find this [in the console here](https://www.twilio.com/console).
+`TWILIO_TWIML_APP_SID` | The TwiML application with a voice URL configured to access your server running this app - create one [in the console here](https://www.twilio.com/console/voice/twiml/apps). Also, you will need to configure the Voice "REQUEST URL" on the TwiML app once you've got your server up and running.
+`TWILIO_CALLER_ID` | A Twilio phone number in [E.164 format](https://www.twilio.com/docs/glossary/what-e164) - you can [get one here](https://www.twilio.com/console/phone-numbers/incoming)
+`API_KEY` / `API_SECRET` | Your REST API Key information needed to create an [Access Token](https://www.twilio.com/docs/iam/access-tokens) - create [an API key here](https://www.twilio.com/console/project/api-keys). The `API_KEY` value should be the key's `SID`.
 
-### Local development
-
-After the above requirements have been met:
+### Local Development
 
 1. Clone this repository and `cd` into it
 
     ```bash
-    git clone git@github.com:TwilioDevEd/client-quickstart-php.git
-    cd client-quickstart-php
+   git clone https://github.com/TwilioDevEd/voice-javascript-sdk-quickstart-php.git
+   cd voice-javascript-sdk-quickstart-php
     ```
 
 1. Install PHP dependencies
@@ -54,50 +56,98 @@ After the above requirements have been met:
     make install
     ```
 
-1. Set your environment variables
+1. Download the Twilio Voice JavaScript SDK code from GitHub.
 
-    ```bash
-    cp .env.example .env
-    ```
+   In a production environment, we recommend using `npm` to install the SDK. However, for the purposes of this quickstart,
+   we are not introducing Node or build tools, and are instead getting the SDK code directly from GitHub.
 
-    See [Twilio Account Settings](#twilio-account-settings) to locate the necessary environment variables.
+   See the instructions [here](https://github.com/twilio/twilio-voice.js#github) for downloading the SDK code from GitHub.
+   You will download a zip or tarball for a specific release version of the Voice JavaScript SDK (ex: `2.0.0`), extract the
+   files, and retrieve the `twilio.min.js` file from the `dist/` folder. Move that `twilio.min.js` file into this directory (the main `voice-javascript-sdk-quickstart-php` directory).
 
-1. Run the application
+1. Create a configuration file for your application by copying the `.env.example` file to a new file called `.env`. Then, edit the `.env` file to include your account and application details.
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   See [Twilio Account Settings](#twilio-account-settings) to locate the necessary environment variables.
+
+1. Run the application. It will run locally on port 8000.
 
     ```bash
     make serve
     ```
 
-1. [Download and install ngrok](https://ngrok.com/download)
+1. Expose your application to the wider internet using [ngrok](https://ngrok.com/download). You can click [here](https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html) for more details. This step **is important** and your application won't work if you only run the server on localhost.
 
-> [Learn 6 awesome reasons why to use ngrok](https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html).
-
-1. Run ngrok:
-
-    ```bash
-    ngrok http 8000
-    ```
+   ```bash
+   ngrok http 8000
+   ```
 
 1. When ngrok starts up, it will assign a unique URL to your tunnel. It might be something like `https://asdf456.ngrok.io`. Take note of this.
 
-1. [Configure your TwiML app](https://www.twilio.com//console/phone-numbers/dev-tools/twiml-apps)'s Voice "REQUEST URL" to be your ngrok URL plus `/voice.php`. For example:
+1. [Configure your TwiML app](https://www.twilio.com/console/voice/twiml/apps)'s Voice "REQUEST URL" to be your ngrok URL plus `/voice.php`. For example:
 
-    ![screenshot of twiml app](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/TwilioClientRequestUrlPHP.original.png)
+    ![screenshot of twiml app](./screenshots/UpdateRequestURLPHP.png)
 
 > **Note:** You must set your webhook urls to the `https` ngrok tunnel created.
 
-You should now be ready to rock! Make some phone calls. Open it on another device and call yourself. Note that Twilio Client requires WebRTC enabled browsers, so Edge and Internet Explorer will not work for testing. We'd recommend Google Chrome or Mozilla Firefox instead.
+You should now be ready to rock! Open a browser to `localhost:8000` and make some phone calls. Open it on another device and call yourself. Note that Twilio Client requires WebRTC enabled browsers, so Edge and Internet Explorer will not work for testing. We'd recommend Google Chrome or Mozilla Firefox instead.
 
-![screenshot of phone app](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/TwilioClientQuickstart.original.png)
+## Your Web Application
+
+When you navigate to `localhost:8000`, you should see the web application containing a "Start up the Device" button. Click this button to initialize a `Twilio.Device`.
+
+![screenshot of application homepage](./screenshots/InitializeDevice.png)
+
+When the `Twilio.Device` is initialized, you will be assigned a random client name, which will appear in the top left corner of the homepage.
+This client name is used as the identity field when generating an access token for the client, and is also used to route incoming calls to the correct client device.
+
+### To make an outbound call to a phone number:
+
+Under "Make a Call", enter a phone number in [E.164 format](https://www.twilio.com/docs/glossary/what-e164) and press the "Call" button.
+
+### To make a browser-to-browser call:
+
+Open two browser windows to `localhost:8000` and click "Start up the Device" button in both windows. You should see a different client name in each window.
+
+Enter one client's name in the other client's "Make a Call" input field, and press the "Call" button.
+
+![screenshot of browser-to-browser calling](./screenshots/BrowserToBrowserCall.png)
+
+### Receiving incoming calls from a non-browser device:
+
+You will first need to configure your Twilio Voice phone number (the phone number you used as the `TWILIO_CALLER_ID` configuration value) to route to your TwiML app. This tells Twilio how to handle an incoming call directed to your Twilio Voice number.
+
+1. Log in to the [Twilio Console](https://www.twilio.com/console)
+2. Navigate to your [Active Number list](https://www.twilio.com/console/phone-numbers/incoming)
+3. Click on the number you are using as your `TWILIO_CALLER_ID`.
+4. Scroll down to find the "Voice & Fax" section and look for "CONFIGURE WITH".
+5. Select "TwiML App".
+6. Under "TwiML App", choose the TwiML App you created earlier for this quickstart.
+7. Click the "Save" button at the bottom of the browser window.
+
+![screenshot of configuring phone number for incoming calls](./screenshots/ConfigurePhoneNumberWithTwiMLApps.png)
+
+You can now call your Twilio Voice phone number from your phone.
+
+**Note:** Since this is a quickstart with limited functionality, incoming calls will only be routed to your most recently created `Twilio.Device`.
+
+### Unknown Devices
+
+If you see "Unknown Audio Output Device 1" in the "Ringtone" or "Speaker" devices lists, click the button below the boxes (Seeing "Unknown" Devices?) to have your browser identify your input and output devices.
+![screenshot of unknown devices](./screenshots/UnknownDevices.png)
 
 ### Docker
 
 If you have [Docker](https://www.docker.com/) already installed on your machine, you can use our `docker-compose.yml` to setup your project.
 
-1. Make sure you have the project cloned.
-2. Setup the `.env` file as outlined in the [Local Development](#local-development) steps.
-3. Run `docker-compose up`.
-4. Follow the steps in [Local Development](#local-development) on how to expose your port to Twilio using a tool like [ngrok](https://ngrok.com/) and configure the remaining parts of your application
+1. Make sure you have the project cloned and that Docker is running on your machine.
+2. Retrieve the `twilio.min.js` file and move it to the project's root directory as outlined in Step 3 of the [Local Development](#local-development) steps.
+3. Setup the `.env` file as outlined in Step 4 of the [Local Development](#local-development) steps.
+4. Run `docker-compose up`.
+5. Follow the steps in [Local Development](#local-development) on how to expose your port to Twilio using [ngrok](https://ngrok.com/) and configure the remaining parts of your application.
 
 ### Unit and Integration Tests
 
