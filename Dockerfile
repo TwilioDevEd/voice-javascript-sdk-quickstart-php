@@ -1,4 +1,4 @@
-FROM php:7.4
+FROM php:8.0
 
 WORKDIR /usr/src/app
 
