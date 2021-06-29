@@ -38,7 +38,9 @@ function get_access_token($identity) {
 
 // choose a random username for the connecting user
 $identity = randomUsername();
+if(!session_id()) session_start();
+$_SESSION['identity'] = $identity;
 
 // return serialized token and the user's randomly generated ID
 header('Content-Type: application/json');
-echo get_access_token($identity);
+echo get_access_token($_SESSION['identity']);

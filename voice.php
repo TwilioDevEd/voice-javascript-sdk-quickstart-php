@@ -8,8 +8,12 @@ $dotenv->load();
 
 function get_voice_response($phone) {
     $response = new VoiceResponse();
-
-    if (!empty($phone) && strlen($phone) > 0) {
+    if ($phone == $_ENV['TWILIO_CALLER_ID']) {
+        # Receiving an incoming call to the browser from an external phone
+        $response = new VoiceResponse();
+        $dial = $response->dial('');
+        $dial->client($_SESSION['identity']);
+    } else if (!empty($phone) && strlen($phone) > 0) {
         $number = htmlspecialchars($phone);
         $dial = $response->dial('', ['callerId' => $_ENV['TWILIO_CALLER_ID']]);
         
@@ -29,4 +33,8 @@ function get_voice_response($phone) {
 
 // get the phone number from the page request parameters, if given
 header('Content-Type: text/xml');
+$phone = $_REQUEST['phone'] ?? null;
+if (is_null($phone)) {
+    $phone = $_REQUEST['To'];
+}
 echo get_voice_response($_REQUEST['phone'] ?? null);
