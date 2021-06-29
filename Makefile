@@ -2,7 +2,6 @@
 
 install:
 	composer install
-	npm install
 
 serve-setup:
 	php -S localhost:8000
