@@ -33,8 +33,6 @@ function get_voice_response($phone) {
 
 // get the phone number from the page request parameters, if given
 header('Content-Type: text/xml');
-$phone = $_REQUEST['phone'] ?? null;
-if (is_null($phone)) {
-    $phone = $_REQUEST['To'];
-}
-echo get_voice_response($_REQUEST['phone'] ?? null);
+$phone = $_REQUEST['To'] ?? null;
+
+echo get_voice_response($_REQUEST['To'] ?? null);
