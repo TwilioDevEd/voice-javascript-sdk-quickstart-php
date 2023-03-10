@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "99a97f30e30b97ebc159259238478bfb",
+    "content-hash": "0be8b49a65b4f23b8cab2dfe5b193762",
     "packages": [
         {
             "name": "graham-campbell/result-type",
@@ -385,16 +385,16 @@
         },
         {
             "name": "twilio/sdk",
-            "version": "6.24.1",
+            "version": "7.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twilio/twilio-php.git",
-                "reference": "3438bcdb42a8fabcfaa081670d5924b868016148"
+                "url": "git@github.com:twilio/twilio-php.git",
+                "reference": "0cab797dfcb38af3c575e959b69e3e7cf1e28e7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/3438bcdb42a8fabcfaa081670d5924b868016148",
-                "reference": "3438bcdb42a8fabcfaa081670d5924b868016148",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/0cab797dfcb38af3c575e959b69e3e7cf1e28e7b",
+                "reference": "0cab797dfcb38af3c575e959b69e3e7cf1e28e7b",
                 "shasum": ""
             },
             "require": {
@@ -402,8 +402,7 @@
             },
             "require-dev": {
                 "guzzlehttp/guzzle": "^6.3 || ^7.0",
-                "phpunit/phpunit": ">=4.5",
-                "theseer/phpdox": "^0.12.0"
+                "phpunit/phpunit": ">=7.0 < 10"
             },
             "suggest": {
                 "guzzlehttp/guzzle": "An HTTP client to execute the API requests"
@@ -425,17 +424,13 @@
                 }
             ],
             "description": "A PHP wrapper for Twilio's API",
-            "homepage": "http://github.com/twilio/twilio-php",
+            "homepage": "https://github.com/twilio/twilio-php",
             "keywords": [
                 "api",
                 "sms",
                 "twilio"
             ],
-            "support": {
-                "issues": "https://github.com/twilio/twilio-php/issues",
-                "source": "https://github.com/twilio/twilio-php/tree/6.24.1"
-            },
-            "time": "2021-06-02T20:26:58+00:00"
+            "time": "2023-03-09T13:12:00+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -4517,5 +4512,5 @@
         "php": "^7.2.5 || ^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }
